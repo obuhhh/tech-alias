@@ -54,7 +54,7 @@ function startGame() {
     router.push('/round');
 }
 
-watch(() => [...names.value, count.value, timer.value], () => {
+watch(() => [...names.value, count.value], () => {
     initGame(count.value, names.value, timer.value);
 }, {immediate: true});
 </script>
