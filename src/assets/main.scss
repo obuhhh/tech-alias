@@ -1,0 +1,30 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+#app {
+  max-width: 1280px;
+  margin: 0 auto;
+  font-weight: normal;
+  height: 100%;
+}
+
+body {
+  @apply font-sans bg-gray-800 text-white h-screen;
+}
+
+a {
+  @apply text-green-500;
+}
+
+.btn {
+  @apply bg-green-500 text-white uppercase py-3 px-4 rounded text-xs tracking-widest font-bold cursor-pointer;
+
+  &--secondary {
+    @apply bg-gray-500;
+  }
+
+  &:disabled {
+    @apply bg-gray-500 cursor-not-allowed;
+  }
+}
