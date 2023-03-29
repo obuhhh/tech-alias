@@ -9,6 +9,10 @@
   height: 100%;
 }
 
+* {
+  touch-action: manipulation;
+}
+
 body {
   @apply font-sans bg-gray-800 text-white h-screen;
 }
