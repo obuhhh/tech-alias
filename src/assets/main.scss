@@ -24,6 +24,10 @@ a {
 .btn {
   @apply bg-green-500 text-white uppercase py-3 px-4 rounded text-xs tracking-widest font-bold cursor-pointer;
 
+  &--small {
+    @apply py-1 px-3 text-[9px];
+  }
+
   &--secondary {
     @apply bg-gray-500;
   }

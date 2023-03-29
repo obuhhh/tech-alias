@@ -1,4 +1,6 @@
-import { words } from './dictonary'
+import { words } from './dictionary'
+import { useSave } from '@/composables'
+const { saveGame } = useSave()
 
 class Player {
     constructor (name) {
@@ -74,6 +76,7 @@ export class AliasGame {
             return this.endRound()
         }
         this.currentWord = this.words.splice(Math.floor(Math.random() * this.words.length), 1)[0]
+        saveGame(this)
     }
 
     wordGuessed () {
@@ -114,6 +117,39 @@ export class AliasGame {
                 clearInterval(interval)
             }
         }, 1000)
+    }
+
+    static importGame (jsonData) {
+        const data = JSON.parse(jsonData)
+        const game = new AliasGame(data.teams.length, '', data.roundTime)
+        game._state = 'idle'
+        game.timer = data.timer
+        game.words = data.words
+        game.currentWord = data.currentWord
+        game.roundWords = data.roundWords
+
+        game.teams = data.teams.map(t => {
+            const players = t.players.map(pl => {
+                const player = new Player(pl.name)
+                player.score = pl.score
+                return player
+            })
+
+            const team = new Team(t.name, players)
+            team.round = t.round
+
+            if (t.currentPlayer) {
+                team.currentPlayer = players.find(pl => pl.name === t.currentPlayer.name)
+            }
+
+            return team
+        })
+
+        if (data.currentTeam) {
+            game.currentTeam = game.teams.find(team => team.name === data.currentTeam.name)
+        }
+
+        return game
     }
 }
 

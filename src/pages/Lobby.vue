@@ -46,16 +46,27 @@ import IconPencil from "@/assets/IconPencil.vue";
 import { router } from "@/router";
 
 const { game, initGame } = useStore();
-const names = ref("Олександр, Юлія, Андрій, Олена, Віктор, Марія, Ігор, Наталія, Сергій, Ірина");
+const names = ref(localStorage.getItem('names') || '');
 const count = ref(1);
 const timer = ref(90);
 
 function startGame() {
+    localStorage.setItem('names', names.value)
     game.value.roundTime = timer.value
     router.push('/round');
 }
 
 watch(() => [...names.value, count.value], () => {
+    localStorage.setItem('names', names.value)
     initGame(count.value, names.value, timer.value);
 }, {immediate: true});
+
+window.addEventListener('beforeunload', function (e) {
+    console.log(game.value.state.idle)
+    if (game.value && !game.value.state.idle) {
+        e.preventDefault();
+        e.returnValue = ''
+    }
+})
+
 </script>

@@ -18,13 +18,20 @@
                       </div>
                   </div>
 
-                  <div class="flex flex-wrap mt-3 opacity-60">
+                  <div class="flex flex-wrap mt-3">
                       <div
                           v-for="player in [...team.players].sort((a, b) => b.score - a.score)"
-                          class="text-[12px] leading-none flex items-center mr-2 mb-1"
+                          class="text-[12px] leading-none flex items-center pl-1.5 pr-1 py-0.5 -mx-0.5 rounded-full"
+                          :class="{
+                              'bg-green-500 bg-opacity-20': player === game.currentTeam.currentPlayer,
+                              'opacity-60': player !== game.currentTeam.currentPlayer
+                          }"
                       >
                           <span>{{ player.name }}</span>
-                          <span class="text-[10px] p-0.5 bg-gray-900 border border-gray-700 rounded-full">{{ player.score }}</span>
+                          <span
+                              class="text-[10px] mt-0.5 py-0.5 px-1 bg-gray-900 border border-gray-700 rounded-full"
+                              :class="{ 'bg-opacity-0 border-0 font-bold': player === game.currentTeam.currentPlayer }"
+                          >{{ player.score }}</span>
                       </div>
                   </div>
               </div>
