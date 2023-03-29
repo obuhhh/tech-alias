@@ -1,7 +1,7 @@
 <template>
   <div class="h-full flex flex-col">
       <textarea
-          class="rounded px-3 py-1 block w-full bg-gray-700 outline-none" rows="5" v-model="names"
+          class="rounded px-3 py-1 h-[200px] block w-full bg-gray-700 outline-none flex-shrink-0" v-model="names"
           placeholder="Enter team names separated by comma"
       />
 
@@ -23,7 +23,7 @@
           <button class="btn" @click="timer += 10"> + </button>
       </div>
 
-      <div v-if="game" class="mt-auto">
+      <div v-if="game" class="mt-auto overflow-y-auto">
           <div v-for="team in game.teams" class="border-b border-gray-700 pb-2">
               <div class="mt-2">
                   <div class="text-lg font-bold relative">
@@ -51,6 +51,7 @@ const count = ref(1);
 const timer = ref(90);
 
 function startGame() {
+    game.value.roundTime = timer.value
     router.push('/round');
 }
 
